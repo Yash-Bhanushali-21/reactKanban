@@ -1,52 +1,40 @@
 import {CONSTANTS} from '../actions';
+import axios from 'axios';
 
 let listId = 3;
 let cardId = 2;
-const initialState = [
-    {
-        title : "Applicants",
-        id : `list-${0}`,
-        cards : [
-            {
-                id :`card-${0}`,
-                designation : "React Developer,B.E.",
-                title : "Yash Bhanushali",
-                about : "Bachelors in Engineering, Information Technology",
-                image : "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80"
-            },
-            {
-                id :`card-${1}`,
-                designation : "Node Developer,B.E.",
-                title : "Harsh Bhanushali",
-                about : "Bachelors in Engineering, Information Technology",
-                image : "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1868&q=80"
-            }
-        ]
-    },
-    {
-        title : "Review",
-        id : `list-${1}`,
-        cards : []
-    },
-    {
-        title : "Shortlisted",
-        id : `list-${2}`,
-        cards : []
 
-    }
-]
+async function updateDatabase(stateObject) {
+    // fetch data from a url endpoint
+    const data = await axios.post("http://localhost:4000/updateDatabase",{stateObject : stateObject})
+    .then((res) => console.log(res.statusCode))
+    .catch((err) => console.log('error in db'))
 
-const listsReducer = (state = initialState , action) => {
+  }
+const listsReducer = (state = [] , action) => {
     switch(action.type){
 
-        case CONSTANTS.ADD_LIST:
+        case CONSTANTS.STORE_DATA: {
+            const newState = action.payload;
+            console.log(newState);
+            return newState;
+                
+            
+
+        }
+
+        case CONSTANTS.ADD_LIST:{
             const newList = {
                 title : action.payload,
                 cards : [],
                 id : `list-${listId}`
             };
             listId += 1;
-            return [...state,newList];
+            const newState =  [...state,newList];
+            updateDatabase(newState);
+            return newState;
+        }
+
         //listId,d,a,t,img
         case CONSTANTS.ADD_CARD: {
             const newCard = {
@@ -69,6 +57,7 @@ const listsReducer = (state = initialState , action) => {
                     return list;
                 }
             });
+            updateDatabase(newState);
             return newState;
         }
         
@@ -82,6 +71,7 @@ const listsReducer = (state = initialState , action) => {
             if(type === 'list'){
                 const list = newState.splice(droppableIndexStart,1);
                 newState.splice(droppableIndexEnd,0,...list);
+                updateDatabase(newState);
                 return newState;
             }
             //if same list
@@ -102,6 +92,7 @@ const listsReducer = (state = initialState , action) => {
                 listEnd.cards.splice(droppableIndexEnd,0,...card);
 
             }
+            updateDatabase(newState);
             return newState;
         }
 

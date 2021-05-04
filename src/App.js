@@ -2,14 +2,19 @@ import TrelloList from './components/TrelloList';
 import {connect} from 'react-redux';
 import TrelloActionButton from './components/TrelloActionButton';
 import {DragDropContext,Droppable} from 'react-beautiful-dnd';
-import {sort} from './actions';
+import {sort ,addState} from './actions';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import {useEffect} from 'react';
+
 
 
 
 function App(props) {
-  const {lists} = props;
+  const {lists,dispatch} = props;
+  //useEffect(() => {
+    //dispatch(addState());
+  //},[])
   const onDragEnd = result => {
     //TODO : reordering
     const {destination,source,draggableId,type} = result;
