@@ -45,7 +45,7 @@ const CardForm = (props) => {
             resetStates();
         }
       
-       // props.closeForm();
+       props.closeForm();
         return;
     }
 

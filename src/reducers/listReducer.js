@@ -37,6 +37,7 @@ const listsReducer = (state = [] , action) => {
 
         //listId,d,a,t,img
         case CONSTANTS.ADD_CARD: {
+            console.log('new card id is ' + cardId);
             const newCard = {
                 id : `card-${cardId}`,
                 designation : action.payload.d,
