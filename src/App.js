@@ -6,6 +6,10 @@ import {sort ,addState} from './actions';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import {useEffect} from 'react';
+import {initialData} from './reducers/initialData';
+import {resetState} from './actions';
+import Button from '@material-ui/core/Button';
+
 
 
 
@@ -15,6 +19,11 @@ function App(props) {
   //useEffect(() => {
     //dispatch(addState());
   //},[])
+
+  const handleReset = () => {
+    dispatch(resetState(initialData));
+
+  }
   const onDragEnd = result => {
     //TODO : reordering
     const {destination,source,draggableId,type} = result;
@@ -32,6 +41,7 @@ function App(props) {
     <DragDropContext onDragEnd= {onDragEnd}>
     <div className="App">
       <h2><Typography >Trello Kanban Board</Typography></h2>
+      <Button  style = {styles.button}onClick = {handleReset}>RESET</Button>
       <Droppable droppableId = "all-list" direction="horizontal" type = "list">
         {provided => (
           <ListContainer {...provided.droppableProps} ref ={provided.innerRef}>
@@ -54,6 +64,14 @@ const mapStateToProps = state => ({
   lists : state.lists
 });
 
+const styles = {
+  button : {
+    color:'white',
+    backgroundColor : '#dfe3e6',
+    height:'30px',
+    marginBottom:'20px'
+}
+}
 const ListContainer = styled.div`
 display : flex;
 flexDirection : row;

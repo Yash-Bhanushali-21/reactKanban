@@ -26,7 +26,7 @@ const TrelloCard = ({ designation ,title , about , image , id , index , listTitl
              
               <img className = {'img'} src = {image} ></img>
               
-              <Typography color = 'textSecondary' >
+              <Typography color = 'textSecondary'component={'span'} >
                <div className = {'wrapper'} >
                  <h2 className ={'title'}>{title}</h2>
                  <p className = {'paragraph'}>{about}</p>

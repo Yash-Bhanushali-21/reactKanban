@@ -4,6 +4,7 @@ import axios from 'axios';
 let listId = 3;
 let cardId = 2;
 
+
 async function updateDatabase(stateObject) {
     // fetch data from a url endpoint
     const data = await axios.post("http://localhost:4000/updateDatabase",{stateObject : stateObject})
@@ -11,16 +12,31 @@ async function updateDatabase(stateObject) {
     .catch((err) => console.log('error in db'))
 
   }
+
+
 const listsReducer = (state = [] , action) => {
     switch(action.type){
 
+
+        case CONSTANTS.RESET: {
+            const newState = action.payload;
+            listId = 4;
+            cardId = 3;
+            //updateDatabase(newState);
+            return newState;
+        }
+
         case CONSTANTS.STORE_DATA: {
             const newState = action.payload;
-            console.log(newState);
+            listId = newState.length + 1;
+            let card_count = 0;
+            newState.map(list => {
+                if(list.cards.length . card_count){
+                    card_count = list.cards.length;
+                }
+            })
+            cardId = card_count + 1;
             return newState;
-                
-            
-
         }
 
         case CONSTANTS.ADD_LIST:{
@@ -29,9 +45,9 @@ const listsReducer = (state = [] , action) => {
                 cards : [],
                 id : `list-${listId}`
             };
-            listId += 1;
+            listId = state.length + 1;
             const newState =  [...state,newList];
-            updateDatabase(newState);
+            //updateDatabase(newState);
             return newState;
         }
 
@@ -46,9 +62,16 @@ const listsReducer = (state = [] , action) => {
                 image : action.payload.i
 
             };
-            cardId += 1;
+            let max_card_number = 0;
             const newState = state.map(list => {
+
+                if(list.cards.length > max_card_number){
+                    max_card_number = list.cards.length;
+                }
+
                 if(list.id === action.payload.listId){
+
+                    cardId = max_card_number + 1;
                     return {
                         ...list,
                         cards : [...list.cards,newCard]
@@ -58,7 +81,7 @@ const listsReducer = (state = [] , action) => {
                     return list;
                 }
             });
-            updateDatabase(newState);
+           // updateDatabase(newState);
             return newState;
         }
         
@@ -72,7 +95,7 @@ const listsReducer = (state = [] , action) => {
             if(type === 'list'){
                 const list = newState.splice(droppableIndexStart,1);
                 newState.splice(droppableIndexEnd,0,...list);
-                updateDatabase(newState);
+                //updateDatabase(newState);
                 return newState;
             }
             //if same list
@@ -93,7 +116,7 @@ const listsReducer = (state = [] , action) => {
                 listEnd.cards.splice(droppableIndexEnd,0,...card);
 
             }
-            updateDatabase(newState);
+            //updateDatabase(newState);
             return newState;
         }
 

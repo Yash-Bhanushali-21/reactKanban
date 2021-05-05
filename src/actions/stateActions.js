@@ -1,6 +1,9 @@
 import {CONSTANTS} from './index.js';
+import {initialData} from '../reducers/initialData';
 import axios from 'axios';
+//add state for db which is supposed to render it first.
 
+/*
 export const addState = () => {
     const url = "http://localhost:4000/";
     return (dispatch) => {
@@ -20,4 +23,10 @@ export const addState = () => {
         });
     };
 };
-
+*/
+export const addState = () => {
+    return {
+        type : CONSTANTS.STORE_DATA,
+        payload : initialData
+    }
+}

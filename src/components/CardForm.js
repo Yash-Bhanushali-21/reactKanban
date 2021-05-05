@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import {connect} from "react-redux";
 import {addCard } from "../actions";
 import styled from "styled-components";
-import { green } from '@material-ui/core/colors';
 import Icon from '@material-ui/core/Icon';
 
 
