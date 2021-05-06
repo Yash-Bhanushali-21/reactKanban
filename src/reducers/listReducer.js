@@ -31,7 +31,7 @@ const listsReducer = (state = [] , action) => {
             listId = newState.length + 1;
             let card_count = 0;
             newState.map(list => {
-                if(list.cards.length . card_count){
+                if(list.cards.length > card_count){
                     card_count = list.cards.length;
                 }
             })
