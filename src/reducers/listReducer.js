@@ -13,6 +13,15 @@ async function updateDatabase(stateObject) {
 
   }
 
+const CountCard = (newState) => {
+    let card_count = 0;
+            newState.map(list => {
+                if(list.cards.length > card_count){
+                    card_count = list.cards.length;
+                }
+            })
+    return card_count;
+}
 
 const listsReducer = (state = [] , action) => {
     switch(action.type){
@@ -21,13 +30,7 @@ const listsReducer = (state = [] , action) => {
         case CONSTANTS.RESET: {
             const newState = action.payload;
             listId = newState.length;
-            let card_count = 0;
-            newState.map(list => {
-                if(list.cards.length > card_count){
-                    card_count = list.cards.length;
-                }
-            })
-            cardId = card_count + 1;
+            cardId = CountCard(newState) + 1;
             //updateDatabase(newState);
             return newState;
         }
@@ -35,13 +38,7 @@ const listsReducer = (state = [] , action) => {
         case CONSTANTS.STORE_DATA: {
             const newState = action.payload;
             listId = newState.length + 1;
-            let card_count = 0;
-            newState.map(list => {
-                if(list.cards.length > card_count){
-                    card_count = list.cards.length;
-                }
-            })
-            cardId = card_count + 1;
+            cardId = CountCard(newState) + 1;
             return newState;
         }
 
@@ -68,16 +65,14 @@ const listsReducer = (state = [] , action) => {
                 image : action.payload.i
 
             };
-            let max_card_number = 0;
+        
+            
             const newState = state.map(list => {
 
-                if(list.cards.length > max_card_number){
-                    max_card_number = list.cards.length;
-                }
 
                 if(list.id === action.payload.listId){
 
-                    cardId = max_card_number + 1;
+                  
                     return {
                         ...list,
                         cards : [...list.cards,newCard]
@@ -88,6 +83,7 @@ const listsReducer = (state = [] , action) => {
                 }
             });
            // updateDatabase(newState);
+            cardId=CountCard(newState) +1;
             return newState;
         }
         
