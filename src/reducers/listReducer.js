@@ -20,8 +20,14 @@ const listsReducer = (state = [] , action) => {
 
         case CONSTANTS.RESET: {
             const newState = action.payload;
-            listId = 4;
-            cardId = 3;
+            listId = newState.length;
+            let card_count = 0;
+            newState.map(list => {
+                if(list.cards.length > card_count){
+                    card_count = list.cards.length;
+                }
+            })
+            cardId = card_count + 1;
             //updateDatabase(newState);
             return newState;
         }
