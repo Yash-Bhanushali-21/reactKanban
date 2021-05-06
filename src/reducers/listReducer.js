@@ -87,7 +87,7 @@ const listsReducer = (state = [] , action) => {
             });
            // updateDatabase(newState);
           
-            cardId += 1;
+            cardId = CountCard(newState);
             console.log('in add data : ', cardId);
             return newState;
         }
