@@ -1,5 +1,6 @@
 import {CONSTANTS} from '../actions';
 import axios from 'axios';
+import {initialData} from './initialData';
 
 let listId = 3;
 let cardId = 2;
@@ -28,7 +29,7 @@ const listsReducer = (state = [] , action) => {
 
 
         case CONSTANTS.RESET: {
-            const newState = action.payload;
+            const newState = initialData;
             listId = 3;
             cardId = 2;
             console.log('reset id ' + cardId);
@@ -86,7 +87,7 @@ const listsReducer = (state = [] , action) => {
             });
            // updateDatabase(newState);
           
-            cardId=CountCard(newState);
+            cardId += 1;
             console.log('in add data : ', cardId);
             return newState;
         }
