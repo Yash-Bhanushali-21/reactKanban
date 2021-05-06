@@ -29,8 +29,9 @@ const listsReducer = (state = [] , action) => {
 
         case CONSTANTS.RESET: {
             const newState = action.payload;
-            listId = newState.length;
-            cardId = CountCard(newState);
+            listId = 3;
+            cardId = 2;
+            console.log('reset id ' + cardId);
             //updateDatabase(newState);
             return newState;
         }
