@@ -9,8 +9,8 @@ export const addList = (title) => {
 export const sort = (
     droppableIdStart,
     droppableIdEnd,
-    droppableIndexEnd,
     droppableIndexStart,
+    droppableIndexEnd,
     draggableId,
     type
  ) => {
