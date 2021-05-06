@@ -15,11 +15,11 @@ async function updateDatabase(stateObject) {
 
 const CountCard = (newState) => {
     let card_count = 0;
-            newState.map(list => {
-                if(list.cards.length > card_count){
-                    card_count = list.cards.length;
-                }
-            })
+    newState.map(list => {
+        if(list.cards.length > card_count){
+                card_count = list.cards.length;
+        }
+    })
     return card_count;
 }
 
@@ -30,7 +30,7 @@ const listsReducer = (state = [] , action) => {
         case CONSTANTS.RESET: {
             const newState = action.payload;
             listId = newState.length;
-            cardId = CountCard(newState) + 1;
+            cardId = CountCard(newState);
             //updateDatabase(newState);
             return newState;
         }
@@ -38,7 +38,8 @@ const listsReducer = (state = [] , action) => {
         case CONSTANTS.STORE_DATA: {
             const newState = action.payload;
             listId = newState.length + 1;
-            cardId = CountCard(newState) + 1;
+            cardId = CountCard(newState);
+            console.log('in store data : ', cardId);
             return newState;
         }
 
@@ -83,7 +84,9 @@ const listsReducer = (state = [] , action) => {
                 }
             });
            // updateDatabase(newState);
-            cardId=CountCard(newState) + 1;
+          
+            cardId=CountCard(newState);
+            console.log('in add data : ', cardId);
             return newState;
         }
         
