@@ -2,12 +2,11 @@ import TrelloList from './components/TrelloList';
 import {connect} from 'react-redux';
 import TrelloActionButton from './components/TrelloActionButton';
 import {DragDropContext,Droppable} from 'react-beautiful-dnd';
-import {sort ,addState} from './actions';
+import {sort ,addState,resetState} from './actions';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import {useEffect} from 'react';
 import {initialData} from './reducers/initialData';
-import {resetState} from './actions';
 import Button from '@material-ui/core/Button';
 
 
@@ -16,11 +15,17 @@ import Button from '@material-ui/core/Button';
 
 function App(props) {
   const {lists,dispatch} = props;
-  //useEffect(() => {
-    //dispatch(addState());
-  //},[])
+  useEffect(() => {
+    if(localStorage.getItem('state') === null){
+      dispatch(resetState());
+    }
+    else{
+      dispatch(addState(JSON. parse(localStorage.getItem('state'))));
+    }
+  },[])
 
   const handleReset = () => {
+    localStorage.clear();
     dispatch(resetState(initialData));
 
   }

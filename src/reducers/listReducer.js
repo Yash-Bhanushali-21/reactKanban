@@ -14,14 +14,17 @@ async function updateDatabase(stateObject) {
 
   }
 
-const CountCard = (newState) => {
+  function CountCard(newState)  {
     let card_count = 0;
     newState.map(list => {
-        if(list.cards.length > card_count){
-                card_count = list.cards.length;
-        }
+        let curr_cards = list.cards;
+        card_count += curr_cards.length;
     })
     return card_count;
+}
+
+function storeLocally(state){
+    localStorage.setItem('state',JSON.stringify(state));
 }
 
 const listsReducer = (state = [] , action) => {
@@ -34,14 +37,17 @@ const listsReducer = (state = [] , action) => {
             cardId = 2;
             console.log('reset id ' + cardId);
             //updateDatabase(newState);
+            localStorage.removeItem('state');
+            storeLocally(newState);
             return newState;
         }
 
         case CONSTANTS.STORE_DATA: {
             const newState = action.payload;
-            listId = newState.length + 1;
-            cardId = CountCard(newState);
+            listId = newState.length;
+            cardId =  CountCard(newState);
             console.log('in store data : ', cardId);
+            storeLocally(newState);
             return newState;
         }
 
@@ -54,6 +60,7 @@ const listsReducer = (state = [] , action) => {
             listId = state.length + 1;
             const newState =  [...state,newList];
             //updateDatabase(newState);
+            storeLocally(newState);
             return newState;
         }
 
@@ -88,6 +95,7 @@ const listsReducer = (state = [] , action) => {
            // updateDatabase(newState);
           
             cardId = CountCard(newState);
+            storeLocally(newState);
             console.log('in add data : ', cardId);
             return newState;
         }
@@ -103,6 +111,7 @@ const listsReducer = (state = [] , action) => {
                 const list = newState.splice(droppableIndexStart,1);
                 newState.splice(droppableIndexEnd,0,...list);
                 //updateDatabase(newState);
+                storeLocally(newState);
                 return newState;
             }
             //if same list
@@ -124,6 +133,7 @@ const listsReducer = (state = [] , action) => {
 
             }
             //updateDatabase(newState);
+            storeLocally(newState);
             return newState;
         }
 

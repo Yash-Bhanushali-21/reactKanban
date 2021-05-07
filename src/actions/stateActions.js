@@ -24,9 +24,9 @@ export const addState = () => {
     };
 };
 */
-export const addState = () => {
+export const addState = (newStateData) => {
     return {
         type : CONSTANTS.STORE_DATA,
-        payload : initialData
+        payload : newStateData
     }
 }

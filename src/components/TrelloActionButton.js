@@ -3,6 +3,7 @@ import {useState} from 'react';
 import CardForm from './CardForm';
 import ListForm from './ListForm';
 import {connect} from "react-redux";
+import styled from "styled-components";
 
 
 
@@ -24,13 +25,13 @@ const TrelloActionButton = (props) => {
 
     const renderAddButton = () => {
         const {list} = props;
-        const buttonText = list ? "Add another list" : "Add another card";
+        const buttonText = list ? "Add list" : "Add another card";
         const buttonTextOpacity = list ? 1 : 0.5;
         const buttonTextColor  = list ? "white" : "inherit";
         const buttonTextBackground = list ? "rgba(0,0,0,.15)" : "inherit";
 
         return (
-            <div style = {{
+            <ButtonWrapper style = {{
                 ...styles.openForButtonGroup,
                 opacity : buttonTextOpacity,
                 color : buttonTextColor,
@@ -39,8 +40,8 @@ const TrelloActionButton = (props) => {
             onClick = {() => list?openListForm():openForm()}
             >
                 <Icon>add</Icon>
-                <p>{buttonText}</p>
-            </div>
+                <p className = 'addButton'>{buttonText}</p>
+            </ButtonWrapper>
         );
     }
 
@@ -57,6 +58,9 @@ const TrelloActionButton = (props) => {
 
 }
 
+const ButtonWrapper = styled.div`
+
+`;
 const styles = {
     openForButtonGroup : {
         display : "flex",
@@ -64,7 +68,7 @@ const styles = {
         cursor : 'pointer',
         borderRadius : '3',
         height : 36,
-        width : 272,
+        width : '272px',
         paddingLeft : 10
     },
     form : {

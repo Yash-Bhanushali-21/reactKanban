@@ -4,13 +4,8 @@ import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 
-const persistConfig = {
-    key : 'root',
-    storage,
-    whitelist : ['lists']
-}
-const rootReducer = combineReducers({
+export default combineReducers({
     lists : listReducer
 });
 
-export default persistReducer(persistConfig,rootReducer);
+// default persistReducer(persistConfig,rootReducer);
