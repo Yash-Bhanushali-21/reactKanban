@@ -23,10 +23,11 @@ const TrelloList = ({title , cards , listID, index}) => {
                     <div className='cardContainer'>
                      {cards.map( (card,index) => <TrelloCard listTitle = {title} index = {index} key ={card.id} id = {card.id}  designation = {card.designation} title = {card.title} about = {card.about} image = {card.image} ></TrelloCard>)}
                     </div>
+                    {provided.placeholder}
                      <div className = {'actionButton'}>
                      <TrelloActionButton listID = {listID} />
                      </div>
-                     {provided.placeholder}
+                   
                      </div>
                      
                 )}
