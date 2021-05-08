@@ -14,7 +14,7 @@ const TrelloCard = ({ designation ,title , about , image , id , index , listTitl
     return(
       <Draggable draggableId = {String(id)} index = {index}>
         {provided => (
-          <CardContainer ref = {provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+          <CardContainer className = {'cardContainer'} ref = {provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
             
            <Card className = {'card'}>
            <CardContent>
@@ -34,13 +34,19 @@ const TrelloCard = ({ designation ,title , about , image , id , index , listTitl
               </Typography>
            
            </div>
-           <div className="footer">
-           {listTitle === 'Review'?<Typography color = 'error' className={'footer'}><WhatshotIcon/>Under Review</Typography>:null}
+           {listTitle === 'Review'?
+            <div>
+               <Typography color = 'error' className={'footer'}><WhatshotIcon/>Under Review</Typography>
+           </div>
+           :null}
+
             {listTitle === 'Shortlisted'?
+            <div>
               <Typography color = 'textPrimary' className={'footer'}><CheckIcon/>Shortlisted</Typography>
+            </div>
             :null
             }
-           </div>
+           
            </CardContent>
            
            </Card>
@@ -56,11 +62,15 @@ const TrelloCard = ({ designation ,title , about , image , id , index , listTitl
 
 
 const CardContainer = styled.div`
+
+  .cardContainer {
+    margin-bottom : 10px;
+  }
   .card{
     padding : 0px;
     width: 100%;
-    margin-bottom : 10px;
-    height: auto;
+
+  
     
   }
   

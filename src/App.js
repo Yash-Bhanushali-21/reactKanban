@@ -51,7 +51,7 @@ function App(props) {
         {provided => (
           <ListContainer {...provided.droppableProps} ref ={provided.innerRef}>
        
-          {lists.map((list,index) => <TrelloList listID = {list.id} index = {index}  key = {list.id} title = {list.title} cards = {list.cards}></TrelloList>)}
+          {lists.map((list,index) => <TrelloList className = {'listItem'} listID = {list.id} index = {index}  key = {list.id} title = {list.title} cards = {list.cards}></TrelloList>)}
           <TrelloActionButton  list></TrelloActionButton>
       
           </ListContainer>  
@@ -79,8 +79,7 @@ const styles = {
 }
 const ListContainer = styled.div`
 display : flex;
-flexDirection : row;
-marginRight : 10;
+flex-direction : row;
 `;
 
 export default connect(mapStateToProps) (App);

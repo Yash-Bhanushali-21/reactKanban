@@ -9,7 +9,7 @@ const TrelloList = ({title , cards , listID, index}) => {
     return( 
         <Draggable draggableId = {String(listID)} index = {index}>
             {provided => (
-                 <ListContainer {...provided.draggableProps} ref ={provided.innerRef} {...provided.dragHandleProps}>
+                 <ListContainer className = {'listContainer'} {...provided.draggableProps} ref ={provided.innerRef} {...provided.dragHandleProps}>
                 <Droppable droppableId = {String(listID)}>
                 {provided => (
                     
@@ -19,9 +19,13 @@ const TrelloList = ({title , cards , listID, index}) => {
                           <div className = {'numberWrapper'}>
                           <Typography className = {'CardsInList'}>{cards.length}</Typography>
                           </div>
-                          </div>
+                    </div>
+                    <div className='cardContainer'>
                      {cards.map( (card,index) => <TrelloCard listTitle = {title} index = {index} key ={card.id} id = {card.id}  designation = {card.designation} title = {card.title} about = {card.about} image = {card.image} ></TrelloCard>)}
+                    </div>
+                     <div className = {'actionButton'}>
                      <TrelloActionButton listID = {listID} />
+                     </div>
                      {provided.placeholder}
                      </div>
                      
@@ -38,6 +42,7 @@ const TrelloList = ({title , cards , listID, index}) => {
 
 
 const ListContainer = styled.div`
+    
     .container{
         background-color : #dfe3e6;
         border-radius : 3px;
@@ -45,7 +50,11 @@ const ListContainer = styled.div`
         padding : 8px;
         margin-right : 10px;
         overflow:hidden;
+        height : auto;
         
+    }
+    .cardContainer {
+        margin-bottom : 8px;
     }
     .text{
         display : flex;
@@ -67,8 +76,11 @@ const ListContainer = styled.div`
         text-align: center;
         border-radius : 2px;
         border: 2px solid #B4BBC4;
+        
        
     }
+  
+   
   
 
    
